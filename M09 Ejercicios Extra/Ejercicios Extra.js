@@ -6,6 +6,15 @@ function deObjetoAarray(objeto) {
    // Estos elementos debe ser cada par clave:valor del objeto recibido.
    // [EJEMPLO]: {D: 1, B: 2, C: 3} ---> [['D', 1], ['B', 2], ['C', 3]].
    // Tu código:
+   const resultado = [];
+
+   for (const clave in objeto) {
+      if (objeto.hasOwnProperty(clave)) {
+         resultado.push([clave, objeto[clave]]);
+      }
+   }
+
+   return resultado;
 }
 
 function numberOfCharacters(string) {
@@ -14,6 +23,23 @@ function numberOfCharacters(string) {
    // Las letras deben estar en orden alfabético.
    // [EJEMPLO]: "adsjfdsfsfjsdjfhacabcsbajda" ---> { a: 5, b: 2, c: 2, d: 4, f: 4, h:1, j: 4, s: 5 }
    // Tu código:
+   const frecuencia = {};
+
+   for (const letra of string) {
+      if (letra.match(/[a-zA-Z]/)) { 
+      const letraMin = letra.toLowerCase(); 
+      frecuencia[letraMin] = (frecuencia[letraMin] || 0) + 1;
+   }
+}
+   const letrasOrdenadas = Object.keys(frecuencia).sort();
+
+   const resultado = {};
+   for (const letra of letrasOrdenadas) {
+   resultado[letra] = frecuencia[letra];
+}
+
+return resultado;
+
 }
 
 function capToFront(string) {
@@ -22,6 +48,18 @@ function capToFront(string) {
    // Retornar el string.
    // [EJEMPLO]: soyHENRY ---> HENRYsoy
    // Tu código:
+   let uppercaseLetters = '';
+   let lowercaseLetters = '';
+
+   for (let char of string) {
+   if (char === char.toUpperCase()) {
+      uppercaseLetters += char;
+   } else {
+      lowercaseLetters += char;
+   }
+   }
+
+   return uppercaseLetters + lowercaseLetters;
 }
 
 function asAmirror(frase) {
@@ -29,18 +67,45 @@ function asAmirror(frase) {
    // La diferencia es que cada palabra estará escrita al inverso.
    // [EJEMPLO]: "The Henry Challenge is close!"  ---> "ehT yrneH egnellahC si !esolc"
    // Tu código:
+   const palabras = frase.split(' ');
+
+   // Función para invertir una cadena de texto
+   function reverseString(str) {
+      return str.split('').reverse().join('');
+   }
+
+   // Aplica la función de inversión a cada palabra y las une nuevamente
+   const resultado = palabras.map(palabra => reverseString(palabra)).join(' ');
+
+   return resultado;
 }
 
 function capicua(numero) {
    // Si el número que recibes es capicúa debes retornar el string: "Es capicua".
    // Caso contrario: "No es capicua".
    // Tu código:
+   let numeroStr = numero.toString();
+   
+   // Comparar los dígitos desde los extremos hacia adentro
+   let izquierda = 0;
+   let derecha = numeroStr.length - 1;
+   while (izquierda < derecha) {
+       if (numeroStr[izquierda] !== numeroStr[derecha]) {
+           return "No es capicua";
+       }
+       izquierda++;
+       derecha--;
+   }
+   
+   // Si todos los dígitos coinciden, entonces es capicúa
+   return "Es capicua";
 }
 
 function deleteAbc(string) {
    // Tu tarea es eliminar las letras "a", "b" y "c" del string recibido.
    // Retorna el string sin estas letras.
    // Tu código:
+   return string.replace(/[abc]/g, '');
 }
 
 function sortArray(arrayOfStrings) {
@@ -49,6 +114,7 @@ function sortArray(arrayOfStrings) {
    // de la longitud de cada string.
    // [EJEMPLO]: ["You", "are", "beautiful", "looking"]  ---> [“You", "are", "looking", "beautiful"]
    // Tu código:
+   return arrayOfStrings.slice().sort((a, b) => a.length - b.length);
 }
 
 function buscoInterseccion(array1, array2) {
@@ -58,6 +124,17 @@ function buscoInterseccion(array1, array2) {
    // Si no tienen elementos en común, retornar un arreglo vacío.
    // [PISTA]: los arreglos no necesariamente tienen la misma longitud.
    // Tu código:
+   const intersection = [];
+
+   // Recorremos el primer arreglo
+   for (const num of array1) {
+       // Si el número está en el segundo arreglo y aún no está en el arreglo de intersección
+       if (array2.includes(num) && !intersection.includes(num)) {
+           intersection.push(num);
+       }
+   }
+
+   return intersection;
 }
 
 /*⚠️ NO MODIFIQUES NADA DEBAJO DE ESTO ⚠️*/
